@@ -1,3 +1,5 @@
+require 'rails_mocks/header_data'
 require 'rails_mocks/stub'
+require 'rails_mocks/shared_context'
 require 'rails_mocks/middleware'
 require 'rails_mocks/rails'

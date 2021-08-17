@@ -8,6 +8,14 @@ module RailsMocks
       @stub = stub
     end
 
+    def execute(scope)
+      scope.allow(allow).to(receiver)
+    end
+
+    private
+
+    attr_reader :stub
+
     def allow
       stub[:allow].constantize
     end
@@ -18,10 +26,6 @@ module RailsMocks
       receiver.and_return(_and_return) if _and_return
       receiver
     end
-
-    private
-
-    attr_reader :stub
 
     def _receive
       stub[:receive]

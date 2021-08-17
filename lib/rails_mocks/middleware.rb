@@ -2,36 +2,30 @@
 
 module RailsMocks
   class Middleware
-    HEADER_NAME = "HTTP_RAILS_MOCKS"
+    include RSpec::Core::Hooks
+
+    alias :let :define_singleton_method
+    def metadata; end
 
     def initialize(app)
       @app = app
     end
 
     def call(req)
-      return @app.call(req) if stubs(req).blank?
+      header_data = RailsMocks::HeaderData.new(req)
+      return @app.call(req) if header_data.empty?
 
       status, headers, response = nil
+
       RSpec::Mocks.with_temporary_scope do
         RSpec::Mocks::Syntax.enable_expect(self.class)
-        parsed_stubs(req).each do |stub|
-          allow(stub.allow).to(stub.receiver)
-        end
+
+        header_data.run_shared_contexts(self)
+        header_data.run_stubs(self)
+
         status, headers, response = @app.call(req)
       end
       [status, headers, response]
-    end
-
-    private
-
-    def parsed_stubs(req)
-      JSON.parse(stubs(req), symbolize_names: true).map do |stub|
-        RailsMocks::Stub.new(stub)
-      end
-    end
-
-    def stubs(req)
-      req[HEADER_NAME]
     end
   end
 end
