@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   spec.require_paths = "lib"
 
-  spec.add_dependency "rails", "~> 6.1.3.2"
+  spec.add_dependency "rails", "~> 6.1.0"
   spec.add_dependency "rspec-mocks", "~> 3.9.1"
   spec.add_dependency "rspec-core", "~> 3.9.0"
 
