@@ -9,7 +9,11 @@ module RailsMocks
     end
 
     def execute(scope)
-      scope.allow(allow).to(receiver)
+      if stub[:allow]
+        scope.allow(allow).to(receiver)
+      elsif stub[:allow_any_instance_of]
+        scope.allow_any_instance_of(allow_any_instance_of).to(receiver)
+      end
     end
 
     private
@@ -18,6 +22,10 @@ module RailsMocks
 
     def allow
       stub[:allow].constantize
+    end
+
+    def allow_any_instance_of
+      stub[:allow_any_instance_of].constantize
     end
 
     def receiver

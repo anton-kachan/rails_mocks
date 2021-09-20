@@ -19,6 +19,7 @@ What we can execute before make request on the rails side:
 # Instead of User we can use any rails constant
 # It can be name of service, model, controller, etc
 allow(User).to receive(:name)
+allow_any_instance_of(User).to receive(:email).and_return("user@email.com")
 allow(Book).to receive(:title).and_return("The Book")
 allow(OrderService).to receive(:new).with(sum: 543).and_return(double(total: 543, id: 1))
 allow(SumService).to receive(:new).with(double(a: 1, b: 5, c: 4)).and_return(double(sum: 10))
@@ -33,6 +34,12 @@ req.headers["RAILS_MOCKS"] = JSON.stringify([
     {
         allow: "User",
         receive: "name"
+    },
+
+    {
+        allow_any_instance_of: "User",
+        receive: "name",
+        and_return: { body: "user@email.com" }
     },
     
     {
