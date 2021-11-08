@@ -19,6 +19,7 @@ module RailsMocks
 
       RSpec::Mocks.with_temporary_scope do
         RSpec::Mocks::Syntax.enable_expect(self.class)
+        self.instance_variable_set(:@hooks, nil)
 
         header_data.run_shared_contexts(self)
         header_data.run_stubs(self)
