@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.1.0"
   spec.add_dependency "rspec-mocks", "~> 3.9.1"
   spec.add_dependency "rspec-core", "~> 3.9.0"
+  spec.add_dependency "proto_pharm", "~> 0.7.0"
 
   spec.add_development_dependency "pry-byebug", "~> 3.7"
 end
