@@ -4,6 +4,7 @@ module RailsMocks
   class Middleware
     include RSpec::Core::Hooks
     include ProtoPharm::RSpec::DSL
+    include RSpec::Mocks::ExampleMethods
 
     alias :let :define_singleton_method
     def metadata; end
